@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>    .model {
+        width: 500px;
+        height: 500px;
+      }
+  
+  * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+  }
+  html{
+      height: 100%;
+  }
+  body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; 
+      background: linear-gradient(270deg, #FCE7F6 0%, #E3EAF8 100%) 0% 0% no-repeat padding-box;
+  }
+  
+  .box{
+    position:absolute;
+    z-index:2;
+  /*   opacity:.3; */
+    width:350px;
+    height:310px;
+  /*   background:red; */
+    transition:all 0.05s linear;
+    overflow:hidden;
+    border-radius:10px;
+  }
+  iframe{
+    width:100%;
+    height:100%;
+    border:none;
+  }</style>
+</head>
+<body>
+    <x-model class="model" src="arcade.gltf"></x-model>
+
+<script src="https://keithclark.co.uk/labs/3d-model-custom-element/examples/assets/js/vendor/three.min.js"></script>
+<script src="https://keithclark.co.uk/labs/3d-model-custom-element/examples/assets/js/vendor/three-gltf-loader.min.js"></script>
+<script src="https://keithclark.co.uk/labs/3d-model-custom-element/examples/assets/js/model-element.min.js"></script>
+<div class="box">
+<!--   <iframe src="https://scratch.mit.edu/projects/267382688/embed/" frameborder="0"></iframe> -->
+<script>
+    $(function () {
+  var card = $("body");
+  card.on("mousemove", function (e) {
+    var x = e.clientX - $(this).offset().left + $(window).scrollLeft();
+    var y = e.clientY - $(this).offset().top + $(window).scrollTop();
+
+    var rY = map(x, 0, $(this).width(), -17, 17);
+    var rX = map(y, 0, $(this).height(), -17, 17);
+
+    $(".model").css(
+      "transform",
+      "rotateY(" + rY + "deg)" + " " + "rotateX(" + -rX + "deg)" );
+    $(".box").css(
+      "transform",
+      "rotateY(" + rY + "deg)" + " " + "rotateX(" + -rX + "deg)"
+    );
+  });
+  // card.on("mouseenter", function () {
+  //   $(".box").css({
+  //     transition: "all " + 0.05 + "s" + " linear"
+  //   });
+  // });
+
+//   card.on("mouseleave", function () {
+//     $(".model").css({
+//       transition: "all " + 0.2 + "s" + " linear"
+//     });
+
+//     $(".model").css(
+//       "transform",
+//       "rotateY(" + 0 + "deg)" + " " + "rotateX(" + 0 + "deg)"
+//     );
+//   });
+
+  function map(x, in_min, in_max, out_min, out_max) {
+    return ((x - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
+  }
+});
+
+</script>
+</div>
+</body>
+</html>
